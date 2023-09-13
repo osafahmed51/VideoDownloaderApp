@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/overflowMenu"
+        android:icon="@drawable/threeblackdots"
+        android:title=""
+        android:iconTint="@color/white"
+        app:showAsAction="always">
+        <menu>
+    <item
+        android:id="@+id/new_tab"
+        android:title="New tab"
+        android:iconTint="#A1A1A3"
+        android:icon="@drawable/new_tab"/>
+    <item
+        android:id="@+id/share_optionmenu"
+        android:title="Share"
+        android:icon="@drawable/share"/>
+    <item
+        android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/history"/>
+
+    <item
+        android:id="@+id/copy_link"
+        android:title="Copy link"
+        android:iconTint="#A1A1A3"
+        android:icon="@drawable/copy"/>
+    <item
+        android:id="@+id/bookmarks"
+        android:title="Book marks"
+        android:icon="@drawable/bookmark"/>
+    <item
+        android:id="@+id/addbookmark"
+        android:title="Add book marks"
+        android:icon="@drawable/addbookmark"/>
+    <item
+        android:id="@+id/desktopsite"
+        android:title="Desktop site"
+        android:iconTint="#A1A1A3"
+        android:icon="@drawable/desktop_site"/>
+    <item
+        android:id="@+id/sharewithfriends"
+        android:title="Share with friends"
+        android:icon="@drawable/sharewithfriend"/>
+    <item
+        android:id="@+id/scan_ad"
+        android:title="Scan AD"
+        android:icon="@drawable/scanad"/>
+    <item
+        android:id="@+id/familyapps"
+        android:title="Family Apps(AD)"
+        android:iconTint="#A1A1A3"
+        android:icon="@drawable/familyapps"/>
+    <item
+        android:id="@+id/settings_optionmenu"
+        android:title="Settings"
+        android:icon="@drawable/settings"/>
+    <item
+        android:id="@+id/rateus"
+        android:title="Rate us"
+        android:iconTint="#A1A1A3"
+        android:icon="@drawable/group_41"/>
+    <item
+        android:id="@+id/exit_optionmenu"
+        android:title="Exit "
+        android:icon="@drawable/path115"/>
+
+
+</menu>
+
+    </item>
+</menu>

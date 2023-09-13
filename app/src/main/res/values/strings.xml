@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="facebook">Facebook</string>
+    <string name="instagram">Instagram</string>
+    <string name="vimeo">Vimeo</string>
+    <string name="dailymotion">Dailymotion</string>
+    <string name="twitter">Twitter</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="removeads">Remove Ads</string>
+    <string name="howtodownload">How to download</string>
+    <string name="feedbackorquestion">Got feedback or questions? Tell us</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bottomsheetbtn1">270p</string>
+    <string name="bottomsheetbtn2">240p</string>
+    <string name="bottomsheetbtn3">360p</string>
+    <string name="bottomsheetbtn4">480p</string>
+    <string name="bottomsheetbtn5">mp3</string>
+    <string name="bottomsheetsize1">Size 1</string>
+    <string name="bottomsheetcancelbtn">Cancel</string>
+    <string name="bottomsheetrenamebtn">Rename</string>
+    <string name="bottomsheetdownloadbtn">Download</string>
+    <string name="filenametextv">File Name</string>
+    <string name="percentagedownloadtextv">Percentage</string>
+    <string name="videoTitle">Video Title</string>
+    <string name="belowvideotitile">Below Video title</string>
+    <string name="downloadbtn">Download</string>
+    <string name="progress_text">Progress</string>
+    <string name="sizeofdownloads">MB</string>
+
+</resources>

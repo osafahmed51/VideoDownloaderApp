@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Tabfragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- ToolBar widget -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+               />
+
+
+
+            <!-- ImageView beside title of ToolBar -->
+            <ImageView
+                android:id="@+id/imageView_removeads"
+                android:layout_width="40dp"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.835"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/group_40"
+                app:tint="#ffff" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/tabfragment_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="672dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/facebookimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/groupfacebook"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/instaimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/groupinsta"
+                app:layout_constraintStart_toEndOf="@+id/facebookimgv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/vimeoimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/groupvimeo"
+                app:layout_constraintEnd_toStartOf="@+id/dailymotionimgv"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/instaimgv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/dailymotionimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/groupdailymotion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/twitterimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="44dp"
+                android:src="@drawable/grouptwitter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/facebookimgv" />
+
+
+            <ImageView
+                android:id="@+id/wallpaperimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="44dp"
+                android:src="@drawable/groupwallpaper"
+                app:layout_constraintEnd_toStartOf="@+id/whatsappimgv"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/facebookimgv"
+                app:layout_constraintTop_toBottomOf="@+id/instaimgv" />
+
+            <ImageView
+                android:id="@+id/whatsappimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/groupwhatsapp"
+                app:layout_constraintBottom_toTopOf="@+id/downloadbtn"
+                app:layout_constraintEnd_toStartOf="@+id/dailymotionimgv"
+                app:layout_constraintTop_toBottomOf="@+id/vimeoimgv"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/removeadsimgv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="44dp"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/groupremoveads"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dailymotionimgv" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/downloadbtn"
+                android:layout_width="317dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="124dp"
+                android:background="@drawable/howtodownload_btnshape"
+                android:text="@string/howtodownload"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wallpaperimgv"
+                app:layout_constraintVertical_bias="0.135" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_howtodownload"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.45" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </FrameLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

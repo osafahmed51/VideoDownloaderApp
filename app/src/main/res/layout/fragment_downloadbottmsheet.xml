@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgv_bottomsheet"
+            android:layout_width="140dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bottomsheetimg" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/bottomsheet_textv_main"
+        android:layout_width="179dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="start"
+        android:text="textview"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_bottomsheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.388" />
+
+
+    <TextView
+        android:id="@+id/videotime"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="85dp"
+        android:textColor="@color/white"
+        android:textSize="09sp"
+        android:gravity="center"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@id/recyclerview_bottomsheet"
+        android:text="TextView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_bottomsheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/cancelbtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_bottomsheet"
+        app:srcCompat="@drawable/cancelbutton" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:padding="16dp"
+        android:text="@string/bottomsheetcancelbtn"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancelbtn" />
+
+    <ImageView
+        android:id="@+id/renamebtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/cancelbtn"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_bottomsheet"
+        app:srcCompat="@drawable/renamebutton" />
+
+
+    <TextView
+        android:id="@+id/renametextv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:padding="16dp"
+        android:text="@string/bottomsheetrenamebtn"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/cancelbtn"
+        app:layout_constraintTop_toBottomOf="@+id/renamebtn" />
+
+    <ImageView
+        android:id="@+id/downloadbtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/renamebtn"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_bottomsheet"
+        app:srcCompat="@drawable/downlod" />
+
+
+    <TextView
+        android:id="@+id/downloadtextv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:padding="16dp"
+        android:text="@string/bottomsheetdownloadbtn"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@id/renamebtn"
+        app:layout_constraintTop_toBottomOf="@+id/downloadbtn" />
+
+    <ProgressBar
+        android:id="@+id/idPBLoading"
+        android:layout_width="72dp"
+        android:layout_height="63dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview_bottomsheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.641" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

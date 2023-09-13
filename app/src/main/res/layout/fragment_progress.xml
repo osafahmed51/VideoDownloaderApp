@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.progressFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrain2"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/progresstxt"
+            android:layout_width="97dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/progress_text"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/progressimgv2"
+            android:layout_width="20dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/group_11"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/progressfeedback"
+            android:layout_width="21dp"
+            android:layout_height="17.2dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="13dp"
+            android:src="@drawable/group2"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/progressimgv2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardv_progress_video1"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="05dp"
+            android:layout_marginEnd="05dp"
+            android:layout_marginBottom="05dp"
+            android:elevation="35dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progresstxt">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/download_imgv_progress"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="12dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+
+                <TextView
+                    android:id="@+id/videotitle_progress"
+                    android:layout_width="193dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="start"
+                    android:text="@string/videoTitle"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/download_imgv_progress"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar_download_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="240dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:progressTint="@color/colorPrimary"
+                    app:layout_constraintStart_toEndOf="@+id/download_imgv_progress"
+                    app:layout_constraintTop_toBottomOf="@+id/videotitle_progress" />
+
+                <TextView
+                    android:id="@+id/mbs_textv_progress"
+                    android:layout_width="87dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="09dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@+id/download_imgv_progress"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar_download_progress" />
+
+                <TextView
+                    android:id="@+id/speedtextv_progress"
+                    android:layout_width="97dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="09dp"
+                    android:layout_marginTop="08dp"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:visibility="gone"
+                    android:textSize="10sp"
+                    app:layout_constraintStart_toEndOf="@+id/download_imgv_progress"
+                    app:layout_constraintTop_toBottomOf="@+id/mbs_textv_progress" />
+
+                <ImageView
+                    android:id="@+id/closebtn_progress"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cross" />
+
+                <ImageView
+                    android:id="@+id/pauseimgv_progress"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="23.24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progressBar_download_progress"
+                    app:srcCompat="@drawable/group_19" />
+
+                <ImageView
+                    android:id="@+id/globeimgv_progress"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="35dp"
+                    app:layout_constraintEnd_toEndOf="@id/pauseimgv_progress"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar_download_progress"
+                    app:srcCompat="@drawable/download_globe" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout_progress"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constrain2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Recycler_fragment_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/nodownloadsprogress"
+            android:layout_width="157dp"
+            android:layout_height="108dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="140dp"
+            android:src="@drawable/group_9"
+            android:visibility="invisible">
+
+        </ImageView>
+
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
