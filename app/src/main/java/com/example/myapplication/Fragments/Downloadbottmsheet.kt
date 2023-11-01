@@ -10,10 +10,8 @@ import android.webkit.URLUtil
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.example.myapplication.Activities.MainActivity
 import com.example.myapplication.Adapters.bottomSheetAdapter
 import com.example.myapplication.Model.BottomMainList
@@ -28,10 +26,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import kotlin.math.log
 
 private const val TAG = "Downloadbottmsheet"
-class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialogFragment(R.layout.fragment_downloadbottmsheet) {
+class Downloadbottmsheet(var listofEntries:ArrayList<Entry>?=null,private var instVideoUrl: String? = null) : BottomSheetDialogFragment(R.layout.fragment_downloadbottmsheet) {
+
+
+    constructor(facebookVideoList: ArrayList<Entry>) : this() {
+        this.listofEntries = facebookVideoList
+    }
+
+    constructor(instVideoUrl: String) : this() {
+        this.instVideoUrl = instVideoUrl
+    }
 
     lateinit var binding: FragmentDownloadbottmsheetBinding
 
@@ -47,27 +53,52 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
 
     private var filename : String? = null
 
+    private var loadedImage: Drawable? = null
+
     private var formattedduration : String = ""
+
+    var newposition : Int? = null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding = FragmentDownloadbottmsheetBinding.bind(view)
 
         val gridLayoutManager = GridLayoutManager(activity?.applicationContext, 3)
         binding.recyclerviewBottomsheet.layoutManager = gridLayoutManager
-        binding.idPBLoading.visibility=View.GONE
 
+        if(listofEntries != null)
+        {
+            handleFBLink()
+        }
+        else if(instVideoUrl != null)
+        {
+            Log.d(TAG, instVideoUrl!!)
+            handleInstLink()
+        }
+
+
+        onClickListeners()
+
+
+
+    }
+
+    private fun handleFBLink() {
 
         CoroutineScope(Dispatchers.IO).launch {
 
 
-            listofEntries.forEach {
+            listofEntries?.forEach {
 
                 val request = Request.Builder()
                     .url(it.BaseURL.toString())
                     .head()
                     .build()
+
+
                 try {
                     val response = client.newCall(request).execute()
                     if (response.isSuccessful) {
@@ -91,16 +122,11 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
                 }
 
 
-            }
-
-            withContext(Dispatchers.Main) {
-
-
                 val mediaPlayer = MediaPlayer()
 
                 try {
 
-                    mediaPlayer.setDataSource(listofEntries[0].BaseURL)
+                    mediaPlayer.setDataSource(listofEntries!![0].BaseURL)
 
                     mediaPlayer.prepareAsync()
 
@@ -112,6 +138,11 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
                         Log.d(TAG, "onViewCreated: videotime $formattedduration")
 
 
+                        binding.videotime.text = "$formattedduration Min"
+
+
+
+
 
                     }
 
@@ -120,62 +151,193 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
                 }
 
 
-                var maxsize = minOf(listofEntries.size, videosize.size)
+            }
 
-                for (i in 0 until maxsize) {
-                    val entries = listofEntries[i]
+            withContext(Dispatchers.Main) {
+
+
+                Glide.with(requireActivity())
+                    .load(listofEntries!![0].BaseURL)
+                    .into(binding.imgvBottomsheet)
+
+
+                var maxsize = listofEntries?.let { minOf(it.size, videosize.size) }
+
+                for (i in 0 until maxsize!!) {
+                    val entries = listofEntries?.get(i)
                     val sizelist = videosize[i]
 
 
 
 
                     val merged =
-                        BottomMainList(entries.BaseURL, entries.QualityLabel,
-                            listofEntries.last().BaseURL,sizelist.size)
+                        BottomMainList(
+                            entries?.BaseURL, entries?.QualityLabel,
+                            listofEntries?.last()?.BaseURL,sizelist.size)
                     mainList.add(merged)
-                    Log.d("last_list", ""+listofEntries.last().BaseURL)
+                    Log.d("last_list", ""+ (listofEntries?.last()?.BaseURL ))
+
+                    binding.idPBLoading.visibility = View.INVISIBLE
 
                 }
 
-                adapter = bottomSheetAdapter(requireContext(),mainList,bottomSheetAdapter)
-                binding.idPBLoading.visibility=View.VISIBLE
+                adapter = bottomSheetAdapter(requireActivity(),mainList,bottomSheetAdapter)
                 binding.recyclerviewBottomsheet.adapter = adapter
+                binding.downloadbtn.setOnClickListener {
+
+                           if(adapter!!.selectedposition != RecyclerView.NO_POSITION)
+                           {
+                               val bundle = Bundle().apply {
+                                   putSerializable(Bottom_Sheet_Data_Key, dataclasssvar)
+                                   filename?.let { putString("filename", it) }
+
+
+                               }
+                               Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
+                               val progressFragment = ProgressFragment()
+                               progressFragment.arguments = bundle
+                               Log.d(TAG, "onClickListeners: "+filename)
+                               Log.d(TAG, "onClickListeners: "+bundle)
+                               (requireActivity() as MainActivity).setCurrentFragment(progressFragment)
+                               dismiss()
+                           }
+                           else
+                           {
+                               Toast.makeText(requireContext(),"Please Select Any To Proceed.",Toast.LENGTH_SHORT).show()
+                           }
+
+                   }
+
 
             }
         }
 
 
-        Glide.with(requireContext()).load(listofEntries[0].BaseURL).listener(object :
-            RequestListener<Drawable> {
-            override fun onLoadFailed(
-                e: GlideException?,
-                model: Any?,
-                target: com.bumptech.glide.request.target.Target<Drawable>,
-                isFirstResource: Boolean
-            ): Boolean {
-                binding.idPBLoading.visibility = View.GONE
-                return false
-            }
-
-            override fun onResourceReady(
-                resource: Drawable,
-                model: Any,
-                target: com.bumptech.glide.request.target.Target<Drawable>?,
-                dataSource: DataSource,
-                isFirstResource: Boolean
-            ): Boolean {
-                binding.idPBLoading.visibility = View.GONE
-                return false
-            }
-        }).into(binding.imgvBottomsheet)
-        binding.videotime.text=formattedduration
-        filename="VidDown"+URLUtil.guessFileName(listofEntries[0].BaseURL,null,null)
+        filename="VidDown"+URLUtil.guessFileName(listofEntries?.get(0)?.BaseURL,null,null)
         binding.bottomsheetTextvMain.text=filename
-        binding.idPBLoading.visibility=View.INVISIBLE
+
+    }
+
+    private fun handleInstLink() {
+
+        CoroutineScope(Dispatchers.IO).launch {
 
 
-        onClickListeners()
 
+
+                val request = Request.Builder()
+                    .url(instVideoUrl.toString())
+                    .head()
+                    .build()
+
+
+                try {
+                    val response = client.newCall(request).execute()
+                    if (response.isSuccessful) {
+                        val contentLength = response.header("Content-Length")
+                        if (contentLength != null) {
+                            val sizeInBytes = contentLength.toInt()
+                            val sizeInMegabytes = sizeInBytes / (1024.0 * 1024.0)
+                            videosize.add(Size(sizeInMegabytes))
+                            Log.d(TAG, videosize.toString())
+
+
+                        } else {
+                            Log.e(TAG, "Content-Length header not available.")
+                        }
+                    } else {
+                        Log.e(TAG, "Request was not successful: ${response.code}")
+                    }
+                } catch (e: Exception) {
+                    Log.d(TAG, "onViewCreated: try catch error: ${e.toString()}")
+                    e.printStackTrace()
+                }
+
+
+                val mediaPlayer = MediaPlayer()
+
+                try {
+
+                    mediaPlayer.setDataSource(instVideoUrl)
+
+                    mediaPlayer.prepareAsync()
+
+                    mediaPlayer.setOnPreparedListener { mp ->
+
+                        val totalDuration = mp.duration
+
+                        formattedduration = formatDuration(totalDuration)
+                        Log.d(TAG, "onViewCreated: videotime $formattedduration")
+
+
+                        binding.videotime.text = "$formattedduration Min"
+
+
+
+
+
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+            withContext(Dispatchers.Main) {
+
+
+                Glide.with(requireActivity())
+                    .load(instVideoUrl)
+                    .into(binding.imgvBottomsheet)
+
+
+
+                val sizelist = videosize[0]
+                    val merged =
+                        BottomMainList(
+                            instVideoUrl, "720",
+                            "", sizelist.size
+                        )
+                    mainList.add(merged)
+                    Log.d("last_list", ""+ (listofEntries?.last()?.BaseURL ))
+
+                    binding.idPBLoading.visibility = View.INVISIBLE
+
+                adapter = bottomSheetAdapter(requireActivity(),mainList,bottomSheetAdapter)
+                binding.recyclerviewBottomsheet.adapter = adapter
+                binding.downloadbtn.setOnClickListener {
+
+                        if(adapter!!.selectedposition != RecyclerView.NO_POSITION)
+                        {
+                            val bundle = Bundle().apply {
+                                putSerializable(Bottom_Sheet_Data_Key, dataclasssvar)
+                                filename?.let { putString("filename", it) }
+                                putString("inst","inst")
+
+                            }
+
+                            val progressFragment = ProgressFragment()
+                            progressFragment.arguments = bundle
+                            Log.d(TAG, "onClickListeners: "+filename)
+                            Log.d(TAG, "onClickListeners: "+bundle)
+                            (requireActivity() as MainActivity).setCurrentFragment(progressFragment)
+                            dismiss()
+
+                        }
+                        else
+                        {
+
+                            Toast.makeText(requireContext(),"Please Select Any To Proceed.",Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+
+
+            }
+        }
+
+
+        filename="VidDown"+URLUtil.guessFileName(instVideoUrl,null,null)
+        binding.bottomsheetTextvMain.text=filename
 
 
     }
@@ -186,20 +348,9 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
             showrenmedialog()
         }
 
-        binding.downloadbtn.setOnClickListener {
-            val bundle = Bundle().apply {
-                putSerializable(Bottom_Sheet_Data_Key, dataclasssvar)
-                filename?.let { putString("filename", it) }
-            }
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_LONG).show()
-            val progressFragment = progressFragment()
-            progressFragment.arguments = bundle
-            Log.d(TAG, "onClickListeners: "+filename)
-            (requireActivity() as MainActivity).setCurrentFragment(progressFragment)
+        binding.cancelbtn.setOnClickListener {
             dismiss()
         }
-
-
     }
 
     private fun showrenmedialog() {
@@ -212,9 +363,14 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
             .setPositiveButton("Rename") { dialog, _ ->
                 val newName = editTextNewName.text.toString().trim()
                 if (newName.isNotEmpty()) {
-                    binding.bottomsheetTextvMain.text = newName
-                    filename=newName
-                } else {
+
+                    val updatedName = if (newName.endsWith(".mp4")) {
+                        newName
+                    } else {
+                        "$newName.mp4"
+                    }
+                    binding.bottomsheetTextvMain.text = updatedName
+                    filename = updatedName
 
                 }
                 dialog.dismiss()
@@ -229,8 +385,7 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
 
 
     val bottomSheetAdapter = object : bottomSheetAdapter.OnClickListener {
-        override fun onClick(position: Int, model: BottomMainList) {
-            Log.d("ab_click", "onBindViewHolder: on click in fragn")
+        override fun onClick( model: BottomMainList) {
             dataclasssvar = model
         }
 
@@ -243,7 +398,7 @@ class Downloadbottmsheet(var listofEntries:ArrayList<Entry>) : BottomSheetDialog
 
     override fun onResume() {
         super.onResume()
-
+//        binding.idPBLoading.visibility=View.INVISIBLE
     }
 
     private fun formatDuration(durationMillis: Int): String {

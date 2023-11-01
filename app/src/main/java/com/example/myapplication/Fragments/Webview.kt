@@ -1,6 +1,5 @@
 package com.example.myapplication.Fragments
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,7 +11,10 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.room.Room
+import com.example.myapplication.utils.AppDataBase
 import com.example.myapplication.Model.Entry
+import com.example.myapplication.Model.LinkEntity
 import com.example.myapplication.Model.Vimeodatamodel
 import com.example.myapplication.R
 import com.example.myapplication.XmlParser
@@ -23,7 +25,6 @@ import java.io.InputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -36,8 +37,6 @@ class Webview : Fragment(R.layout.fragment_webview) {
     var client = OkHttpClient()
 
 
-    var url_vimeo = String()
-
     private var urls=ArrayList<Vimeodatamodel>()
 
     private var urls1=ArrayList<Entry>()
@@ -45,6 +44,7 @@ class Webview : Fragment(R.layout.fragment_webview) {
     private var progressiveArray=JSONArray()
 
     private var args : Bundle?=null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -97,6 +97,23 @@ class Webview : Fragment(R.layout.fragment_webview) {
                     {
                         override fun onPageFinished(view: WebView?, url: String?) {
                             super.onPageFinished(view, url)
+
+
+                            val database by lazy {
+                                Room.databaseBuilder(requireContext(), AppDataBase::class.java, "app_database")
+                                    .build()
+                            }
+
+                                val linkEntity = url?.let { LinkEntity(link = it) }
+                                val linkDao = database.linkDao()
+
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    if (linkEntity != null) {
+                                        Log.d("link", "onPageFinished: "+linkEntity)
+                                        linkDao.insert(linkEntity)
+                                    }
+                                }
+
                         }
 
 
@@ -152,44 +169,69 @@ class Webview : Fragment(R.layout.fragment_webview) {
                     val target_url_insta="https://www.instagram.com/accounts/login/"
 
 
-                    binding.webview.getSettings().setJavaScriptEnabled(true);
-                    binding.webview.getSettings().setPluginState(WebSettings.PluginState.ON);
-                    binding.webview.getSettings().setBuiltInZoomControls(true);
-                    binding.webview.getSettings().setDisplayZoomControls(true);
-                    binding.webview.getSettings().setUseWideViewPort(true);
-                    binding.webview.getSettings().setLoadWithOverviewMode(true);
-                    binding.webview.settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
-                    binding.webview.addJavascriptInterface(this, "INSTADownloader");
+                    binding.webview.settings.setJavaScriptEnabled(true);
+                    binding.webview.settings.setPluginState(WebSettings.PluginState.ON);
+                    binding.webview.settings.builtInZoomControls = true;
+                    binding.webview.settings.displayZoomControls = true;
+                    binding.webview.settings.useWideViewPort = true;
+                    binding.webview.settings.loadWithOverviewMode = true;
+//                    binding.webview.settings.userAgentString = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36"
+                    binding.webview.addJavascriptInterface(this, "InstDownloader");
                     binding.webview.webViewClient=object : WebViewClient()
                     {
+
                         override fun onPageFinished(view: WebView?, url: String?) {
                             super.onPageFinished(view, url)
+                            val database by lazy {
+                                Room.databaseBuilder(requireContext(), AppDataBase::class.java, "app_database")
+                                    .build()
+                            }
 
+                            val linkEntity = url?.let { LinkEntity(link = it) }
+                            val linkDao = database.linkDao()
 
-
-                            injectJSInsta()
-
-
-
+                            CoroutineScope(Dispatchers.IO).launch {
+                                if (linkEntity != null) {
+                                    Log.d("link", "onPageFinished: "+linkEntity)
+                                    linkDao.insert(linkEntity)
+                                }
+                            }
                         }
 
 
-                        override fun onLoadResource(view: WebView?, url: String?) {
-                            super.onLoadResource(view, url)
+                        override fun onLoadResource(view: WebView, url: String) {
 
-                            injectJSInsta()
+                            binding.webview.settings.userAgentString = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36"
 
 
+                            val script = """
+    {
+         var videoElement = document.querySelectorAll('video');
+    for (var i = 0; i < videoElement.length; i++) {
+        (function(i) {
+            var src_video = videoElement[i].getAttribute('src');
+            var download_btn_div = document.createElement("img");
+            download_btn_div.style.zIndex = 4;
+            console.log(videoElement[i] + ': ' + src_video);
+
+            var svgCode = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="42px" height="42px" viewBox="0 0 42 42"><circle fill="#F73400" cx="21" cy="21" r="21"/><g fill="#FFFFFF"><g transform="translate(310.205 104.469)"><path d="M-290.4-89.1c0-1.1,0-2.3,0-3.4c0-0.3,0.1-0.4,0.4-0.4c0.9,0,1.8,0,2.7,0c0.3,0,0.5,0.1,0.5,0.5c0,2.3,0,4.5,0,6.8c0,0.3,0.1,0.5,0.4,0.4c1.2,0,2.5,0,3.7,0c0.1,0,0.2,0,0.4,0.1c0,0.1-0.1,0.2-0.2,0.4c-1.9,1.8-3.9,3.7-5.8,5.5c-0.2,0.2-0.4,0.2-0.6,0c-1.9-1.8-3.9-3.7-5.8-5.5c-0.1-0.1-0.2-0.2-0.2-0.3c0.1-0.1,0.2-0.1,0.4-0.1c1.2,0,2.5,0,3.8,0c0.3,0,0.4-0.1,0.4-0.4C-290.4-86.9-290.4-88-290.4-89.1z"/><path d="M-288.6-75.9h-7c-0.3,0-0.5-0.1-0.5-0.4c0-0.3,0.2-0.4,0.5-0.4c0.9,0,1.8,0,2.7,0h11c0.1,0,0.2,0,0.3,0c0.1,0.1,0.3,0.2,0.3,0.4s-0.2,0.3-0.3,0.4c-0.1,0.1-0.2,0-0.3,0L-288.6-75.9z"/></g></g></svg>';
+            download_btn_div.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgCode);
+            download_btn_div.setAttribute("style", "position:absolute;width:50px;height:50px;bottom:0;left:0");
+            if (videoElement[i].parentElement.getElementsByTagName('img').length == 0) {
+                videoElement[i].parentElement.appendChild(download_btn_div);
+            }
+
+            download_btn_div.onclick = function() {
+                console.log(videoElement[i] + ': ' + src_video);
+                InstDownloader.onInstagramVideoClick(src_video);
+            };
+        })(i);
+    }
+}
+"""
+                            binding.webview.evaluateJavascript(script, null)
 
                         }
-
-                        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                            super.onPageStarted(view, url, favicon)
-
-                            injectJSInsta()
-
-                        }
-
 
                     }
 
@@ -228,6 +270,9 @@ class Webview : Fragment(R.layout.fragment_webview) {
                         {
                             override fun onPageFinished(view: WebView?, url: String?) {
                                 super.onPageFinished(view, url)
+
+
+
                             }
 
 
@@ -319,60 +364,6 @@ class Webview : Fragment(R.layout.fragment_webview) {
     }
 
 
-    @JavascriptInterface
-    fun instaprocessvideo(insta_url : String)
-    {
-        Log.d("instalink", insta_url)
-
-    }
-
-
-
-    @JavascriptInterface
-    fun getUrlsforVimeo(url_video: String) {
-
-//
-//        Log.d("vimeolink", url_video)
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                client = OkHttpClient()
-//                val request = Request.Builder()
-//                    .url(url_video)
-//                    .build()
-//
-//                val response = client.newCall(request).execute()
-//                if (response.isSuccessful) {
-//                    val responseBody = response.body?.string()
-//                    val json = JSONObject(responseBody)
-//
-//
-//                    progressiveArray = json.getJSONObject("request")
-//                        .getJSONObject("files")
-//                        .getJSONArray("progressive")
-//
-//                    for (i in 0 until progressiveArray.length()) {
-//                        val item = progressiveArray.getJSONObject(i)
-//                        val videoUrl = item.getString("url")
-//                        val videoquality=item.getString("quality")
-//                        urls1.add(Entry(videoUrl,videoquality))
-//                    }
-//                    Log.d("vimeourls", urls.toString())
-//
-//                } else {
-//                    Log.e("vimeourls", "HTTP request failed with code: ${response.code}")
-//                }
-//            } catch (e: Exception) {
-//                Log.d("Exceptionvideolins", "getUrlsforVimeo expet: "+e.toString())
-//                e.printStackTrace()
-//            }
-//
-//        }
-//
-//        Downloadbottmsheet(urls1).show(requireFragmentManager(),"show")
-
-    }
-
 
     @JavascriptInterface
     fun processVideo(vidID : String) {
@@ -388,50 +379,64 @@ class Webview : Fragment(R.layout.fragment_webview) {
 
     }
 
-    private fun injectJSInsta() {
-        val test =
-            "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"0 0 54 54\"><defs> <style>.cls-1 {  fill: red;} .cls-2 { fill: #fff; }</style></defs><g id=\"downloader\" transform=\"translate(-40 -427)\"><circle id=\"Ellipse_23\" data-name=\"Ellipse 23\" class=\"cls-1\" cx=\"27\" cy=\"27\" r=\"27\" transform=\"translate(40 427)\"/><g id=\"Group_68\" data-name=\"Group 68\" transform=\"translate(53.882 439.014)\"> <path id=\"Path_187\" data-name=\"Path 187\" class=\"cls-2\" d=\"M35.534-.077A1.088,1.088,0,0,1,36.2,1.065c-.023,3.54,0,7.1,0,10.665v.343h3.334a.905.905,0,0,1,.936.525.922.922,0,0,1-.228,1.051c-1.964,2.238-3.928,4.5-5.892,6.737a.9.9,0,0,1-1.484,0c-1.987-2.284-3.951-4.522-5.915-6.76a.915.915,0,0,1-.228-1.051.938.938,0,0,1,.936-.525h3.312V1.042A1.071,1.071,0,0,1,31.629-.1C32.931-.077,34.233-.077,35.534-.077Z\" transform=\"translate(-20.475)\"/> <path id=\"Path_188\" data-name=\"Path 188\" class=\"cls-2\" d=\"M26.113,90.74A1.751,1.751,0,0,1,25.153,92a2.751,2.751,0,0,1-.959.183H2a1.752,1.752,0,0,1-1.9-1.9v-6.76H3.571v5.161h19.07V83.5h3.494C26.113,85.921,26.113,88.342,26.113,90.74Z\" transform=\"translate(0 -64.507)\"/></g></g></svg>"
+    @JavascriptInterface
+    fun onInstagramVideoClick(instUrl : String)
+    {
+        Log.d("install", instUrl)
+        Log.d("install","Clicked")
+        Downloadbottmsheet(instUrl).show(requireFragmentManager(),"show")
 
-        val script = """
-                        {           
-         mJavaInterface.log('in insta js');
-       var vid = document.querySelectorAll('video');
-       for(i=0; i<vid.length;i++)
-       {
-       var src_video = vid[i].getAttribute('src');
-        var download_btn_div = document.createElement("img");
-        download_btn_div.style.zIndex = 4;
-        var svgCode = '<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><style>.cls-1{fill:red;}.cls-2{fill:#fff;}</style></defs><title>download</title><circle class="cls-1" cx="100" cy="100" r="96"/><g id="download_button_" data-name="download button "><path id="Path_20" data-name="Path 20" class="cls-2" d="M106.92,50.81a3.78,3.78,0,0,1,2.34,4c-.06,12.58,0,25.14,0,37.74v1.24H121a3.16,3.16,0,0,1,2.5,5.52c-7,7.93-13.91,15.91-20.87,23.85a3.13,3.13,0,0,1-4.33.89,3.18,3.18,0,0,1-.9-.89L76.54,99.33a3.19,3.19,0,0,1-.8-3.69A3.24,3.24,0,0,1,79,93.82H90.8v-39a3.84,3.84,0,0,1,2.28-4Z"/><path id="Path_21" data-name="Path 21" class="cls-2" d="M53.89,118.46H66.17v18.37h67.59V118.46h12.35V144c-.21.59-.36,1.14-.58,1.68a6.65,6.65,0,0,1-4.57,3.5H59.1c-.58-.21-1.17-.39-1.69-.63A6.57,6.57,0,0,1,53.9,144Z"/></g></svg>';
-        download_btn_div.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgCode);
-        download_btn_div.setAttribute("style", "position:absolute;width:50px;height:50px;bottom:0;left:0");
-        if (vid[i].parentElement.getElementsByTagName('img').length == 0) {
-            vid[i].parentElement.appendChild(download_btn_div);
-         }
     }
-       
-        download_btn_div.onclick = function() {
-            mJavaInterface.instaprocessvideo(src_video);
-        };
+
+
+
+    @JavascriptInterface
+    fun getUrlsforVimeo(url_video: String) {
+
+
+        Log.d("vimeolink", url_video)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                client = OkHttpClient()
+                val request = Request.Builder()
+                    .url(url_video)
+                    .build()
+
+                val response = client.newCall(request).execute()
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    val json = JSONObject(responseBody)
+
+
+                    progressiveArray = json.getJSONObject("request")
+                        .getJSONObject("files")
+                        .getJSONArray("progressive")
+
+                    for (i in 0 until progressiveArray.length()) {
+                        val item = progressiveArray.getJSONObject(i)
+                        val videoUrl = item.getString("url")
+                        val videoquality=item.getString("quality")
+                        urls1.add(Entry(videoUrl,videoquality))
+                    }
+                    Log.d("vimeourls", urls.toString())
+
+                } else {
+                    Log.e("vimeourls", "HTTP request failed with code: ${response.code}")
+                }
+            } catch (e: Exception) {
+                Log.d("Exceptionvideolins", "getUrlsforVimeo expet: "+e.toString())
+                e.printStackTrace()
+            }
+
         }
-    }
-"""
-
-        binding.webview.loadUrl(
-            ("javascript:" +
-                    "window.onscroll=function()\n" + script)
-        )
 
 
 
-        binding.webview.loadUrl(
-            ("javascript:" +
-                    "window.onload=function()\n" + script)
-        )
+        Downloadbottmsheet(urls1).show(requireFragmentManager(),"show")
 
 
     }
-
-
 
 
 

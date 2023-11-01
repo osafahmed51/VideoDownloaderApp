@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat
 import java.util.Locale
 
 class Utils() {
+
+
     fun getRootDirPath(context : Context) : String
     {
         if(Environment.MEDIA_MOUNTED == Environment.getExternalStorageState())

@@ -1,8 +1,6 @@
 package com.example.myapplication.Adapters
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Model.BottomMainList
 import com.example.myapplication.R
-import kotlin.coroutines.coroutineContext
 
 class bottomSheetAdapter(private var context: Context,private val bList:List<BottomMainList>,private val onClickListener : OnClickListener) :
     RecyclerView.Adapter<bottomSheetAdapter.ViewHolder>() {
-
-    var selectedposition=0
-
+     var selectedposition=RecyclerView.NO_POSITION
 
 
 
@@ -60,13 +55,15 @@ class bottomSheetAdapter(private var context: Context,private val bList:List<Bot
 
             Log.d("ab_click", "onBindViewHolder: on click in adapter")
 
+
                 val previousSelectedPosition = selectedposition
                 selectedposition = position
                 notifyItemChanged(previousSelectedPosition)
                 notifyItemChanged(selectedposition)
 
 
-            onClickListener!!.onClick(selectedposition,ItemsViewModel)
+            onClickListener!!.onClick(ItemsViewModel)
+
 
         }
 
@@ -75,7 +72,7 @@ class bottomSheetAdapter(private var context: Context,private val bList:List<Bot
 
 
     interface OnClickListener {
-        fun onClick(position: Int, model: BottomMainList)
+        fun onClick(model: BottomMainList)
     }
 
 

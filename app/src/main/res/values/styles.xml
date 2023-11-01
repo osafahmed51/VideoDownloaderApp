@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomCheckBoxStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:thumbTint">@color/colorPrimary</item>
+
+
+    </style>
+
+    <style name="CustomSwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:thumbTint">@color/colorPrimary</item>
+        <item name="android:trackTint">@drawable/switch_track_background</item>
+    </style>
+
+    <style name="Checkbox">
+
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="PrimaryColorRatingBar">
+        <item name="android:progressTint">@color/colorPrimary</item>
+    </style>
+
+
+
+
+</resources>

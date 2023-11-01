@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Fragments.progressFragment
+import com.example.myapplication.Fragments.ProgressFragment
 import com.example.myapplication.Model.Entry
 import com.example.myapplication.R
 import com.example.myapplication.utils.Utils
@@ -42,7 +42,7 @@ class downloadprogressAdapter (private val context: Context,private val dList:Li
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val progressFragment=progressFragment()
+        val progressFragment=ProgressFragment()
 
 
     }

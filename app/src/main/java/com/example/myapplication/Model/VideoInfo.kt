@@ -7,5 +7,6 @@ data class VideoInfo(
     val thumbnail: String,
     val filename: String,
     var isSelected: Boolean = false,
-    var deleteIconSelected : Boolean = false
+    var deleteIconSelected : Boolean = false,
+    var isImage : Boolean
 ):java.io.Serializable

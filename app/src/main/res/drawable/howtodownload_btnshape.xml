@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Shadow Layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#22000000" /> <!-- Adjust opacity as needed -->
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
 
-    <solid android:color="#EEF0FC"/>
-    <corners
-        android:bottomRightRadius="19.5dp"
-        android:bottomLeftRadius="19.5dp"
-        android:topLeftRadius="19.5dp"
-        android:topRightRadius="19.5dp"/>
-</shape>
+    <!-- Main Shape Layer -->
+    <item >
+        <shape android:shape="rectangle">
+            <solid android:color="#EEF0FC" />
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+</layer-list>

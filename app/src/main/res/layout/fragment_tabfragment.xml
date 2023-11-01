@@ -45,6 +45,46 @@
                 app:srcCompat="@drawable/group_40"
                 app:tint="#ffff" />
 
+            <EditText
+                android:id="@+id/search_tabfrag"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:background="@drawable/roundededittext"
+                android:hint="Search"
+                android:padding="@dimen/_10sdp"
+                android:inputType="textNoSuggestions"
+                android:textSize="14sp"
+                android:textCursorDrawable="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+                app:layout_constraintEnd_toStartOf="@id/imageView_removeads"
+                app:layout_constraintStart_toEndOf="@+id/backbtntabfragmnt"
+                app:layout_constraintTop_toTopOf="@id/toolbar"
+                app:layout_constraintVertical_bias="0.523" />
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="160dp"
+                android:src="@drawable/searchhhh"
+                android:layout_marginBottom="05dp"
+                app:layout_constraintBottom_toBottomOf="@id/search_tabfrag"
+                app:layout_constraintStart_toStartOf="@+id/search_tabfrag"
+                app:layout_constraintEnd_toEndOf="@id/search_tabfrag"
+                app:layout_constraintTop_toTopOf="@id/search_tabfrag"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/backbtntabfragmnt"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/whitebackarrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.555" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -52,7 +92,8 @@
     <FrameLayout
         android:id="@+id/tabfragment_framelayout"
         android:layout_width="match_parent"
-        android:layout_height="672dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,109 +103,245 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/facebookimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="70dp"
-                android:src="@drawable/groupfacebook"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-
-            <ImageView
-                android:id="@+id/instaimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="70dp"
-                android:src="@drawable/groupinsta"
-                app:layout_constraintStart_toEndOf="@+id/facebookimgv"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/vimeoimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/groupvimeo"
-                app:layout_constraintEnd_toStartOf="@+id/dailymotionimgv"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/instaimgv"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/dailymotionimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginEnd="25dp"
-                android:src="@drawable/groupdailymotion"
+            <LinearLayout
+                android:id="@+id/linearlayout_tab1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:id="@+id/twitterimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="44dp"
-                android:src="@drawable/grouptwitter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/facebookimgv" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/facebookimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/fbgroup_12" />
+
+                <ImageView
+                    android:id="@+id/instaimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/instagroup_13" />
+
+                <ImageView
+                    android:id="@+id/vimeoimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/vimeogroup_14" />
+
+                <ImageView
+                    android:id="@+id/twitterimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/twittergroup_17" />
 
 
-            <ImageView
-                android:id="@+id/wallpaperimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="44dp"
-                android:src="@drawable/groupwallpaper"
-                app:layout_constraintEnd_toStartOf="@+id/whatsappimgv"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/facebookimgv"
-                app:layout_constraintTop_toBottomOf="@+id/instaimgv" />
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/whatsappimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/groupwhatsapp"
-                app:layout_constraintBottom_toTopOf="@+id/downloadbtn"
-                app:layout_constraintEnd_toStartOf="@+id/dailymotionimgv"
-                app:layout_constraintTop_toBottomOf="@+id/vimeoimgv"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/removeadsimgv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="25dp"
-                android:src="@drawable/groupremoveads"
+            <LinearLayout
+                android:id="@+id/linearlayout_tab2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dailymotionimgv" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_tab1">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Facebook"
+                    android:gravity="start"
+                    android:layout_marginStart="15dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Instagram"
+                    android:gravity="start|center"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Vimeo"
+                    android:gravity="start|center"
+                    android:layout_marginStart="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:text="Twitter"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearlayout_tab3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_tab2">
+
+                <ImageView
+                    android:id="@+id/dailymotionimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/dailymotiongroup_15" />
+
+                <ImageView
+                    android:id="@+id/wallpaperimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/rectangle10" />
+
+                <ImageView
+                    android:id="@+id/whatsappimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/whatsappgroup_16" />
+
+                <ImageView
+                    android:id="@+id/removeadsimgv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/removeadsgroup_18" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearlayout_tab4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_tab3">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dailymotion"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Wallpaper"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Whatsapp"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    />
+                <TextView
+                    android:id="@+id/removeadstextv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Remove ads"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:backgroundTint="@color/cardbackground"
+                app:cardCornerRadius="@dimen/_2sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearlayout_tab4">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/nativeAd"
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp"
+                    android:layout_margin="@dimen/_2sdp"
+                    android:background="@drawable/ad_border"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linearlayout_tab4">
+
+                    <include
+                        android:id="@+id/frame"
+                        layout="@layout/include_small_native_ad"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+
+
+            <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/downloadbtn"
                 android:layout_width="317dp"
                 android:layout_height="54dp"
-                android:layout_marginTop="124dp"
+                android:layout_marginTop="200dp"
                 android:background="@drawable/howtodownload_btnshape"
                 android:text="@string/howtodownload"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wallpaperimgv"
-                app:layout_constraintVertical_bias="0.135" />
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_tab4" />
+
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_howtodownload"
@@ -175,7 +352,32 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.45" />
+                app:layout_constraintVertical_bias="0.45" >
+
+            </androidx.viewpager.widget.ViewPager>
+
+            <TextView
+                android:id="@+id/feedbacktextview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="505dp"
+                android:layout_marginStart="20dp"
+                android:text="Got feedback or questions? Tell us"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/webview" />
+
+            <ImageView
+                android:id="@+id/feedbackimgview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/group6"
+                android:layout_marginTop="508dp"
+                android:layout_marginEnd="235dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/webview" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

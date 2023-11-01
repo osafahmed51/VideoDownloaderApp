@@ -8,6 +8,17 @@
     android:orientation="horizontal"
     tools:context=".Activities.downloadSlider">
 
+    <ImageView
+        android:id="@+id/sliderbackbtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.smarteist.autoimageslider.SliderView
         android:id="@+id/imgslider"
         android:layout_width="wrap_content"
@@ -17,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:sliderAnimationDuration="600"
+        android:layout_marginTop="100dp"
         app:sliderAutoCycleDirection="right"
         app:sliderIndicatorAnimationDuration="600"
         app:sliderIndicatorGravity="center_horizontal|bottom"

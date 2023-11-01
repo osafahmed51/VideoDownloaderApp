@@ -1,0 +1,30 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_16sdp">
+
+    <CheckBox
+        android:id="@+id/google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomCheckBoxStyle"
+        android:text="Google"/>
+
+    <CheckBox
+        android:id="@+id/bing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomCheckBoxStyle"
+        android:text="Bing"/>
+
+    <CheckBox
+        android:id="@+id/yahoo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomCheckBoxStyle"
+        android:text="Yahoo"/>
+
+
+</LinearLayout>

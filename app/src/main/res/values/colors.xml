@@ -5,5 +5,13 @@
     <color name="colorPrimary">#DD271C</color>
     <color name="colorPrimaryDark">#DD271C</color>
     <color name="selectedButton">#FF0000</color>
+    <color name="cancelbtnremoveads">#E2E2E2</color>
+    <color name="buynowbtnremoveads">#0481FF</color>
+    <color name="blue">#0848B6</color>
+    <color name="transparent">#FFFFFF</color>
+    <color name="cardbackground">#DAD8D8</color>
+    <color name="removebackground">#DF7070</color>
+
+
 
 </resources>

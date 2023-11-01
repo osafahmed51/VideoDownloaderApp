@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Video Downloader App</string>
     <string name="facebook">Facebook</string>
     <string name="instagram">Instagram</string>
     <string name="vimeo">Vimeo</string>
@@ -28,5 +28,20 @@
     <string name="downloadbtn">Download</string>
     <string name="progress_text">Progress</string>
     <string name="sizeofdownloads">MB</string>
+    <string name="layouthistorytext">Link</string>
+    <string name="historytext">History</string>
+    <string name="bookmarkstext">Book marks</string>
+    <string name="splashscreentext1">Our high-speed download engine ensures</string>
+    <string name="splashscreentext2">quick and efficient video saving.</string>
+    <string name="splashbuttontext">Next</string>
+    <string name="privacypolicytext1"><![CDATA[By clicking the <b>ACCEPT</b> button, you are confirming your agreement with our privacy policy and the terms and conditions governing the use of our app, Your data may be collected, processed, and stored in accordance with our Privacy Policy.]]></string>
+    <string name="privacypolicytext2">For more information, please visit our <privacy_policy_link>Privacy Policy</privacy_policy_link>, Please carefully read and understand the terms and conditions of our app usage. By accepting, you agree to abide by them. </string>
+    <string name="acceptbutton">Accept</string>
+    <string name="cancelbtn">Cancel</string>
+    <string name="buynowbutton">Buy Now</string>
+    <string name="banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="native_id">ca-app-pub-3940256099942544/1044960115</string>
+    <string name="Interstisial_id_splash">ca-app-pub-3940256099942544/1033173712</string>
+
 
 </resources>
